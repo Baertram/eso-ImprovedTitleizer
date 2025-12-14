@@ -9,7 +9,7 @@ local ImprovedTitleizer = ImprovedTitleizer
 ImprovedTitleizer.Name = "ImprovedTitleizer"
 ImprovedTitleizer.DisplayName = "Improved Titleizer"
 ImprovedTitleizer.Author = "tomstock, Baertram, IsJustaGhost[, Kyoma]"
-ImprovedTitleizer.Version = "1.14"
+ImprovedTitleizer.Version = "1.15"
 
 ImprovedTitleizer.titleDropdownRow = nil
 
@@ -798,7 +798,27 @@ local function SetupTitleEventManagement()
                 self.control, --STATS.titleDropdownRow
                 comboBox,
                 {visibleRowsDropdown=sv.visibleRowsDropdown, visibleRowsSubmenu=sv.visibleRowsSubmenu, sortEntries=false,
-                 enableFilter=true, headerCollapsible=true, headerCollapsed=true} --show search editbox at header, but automatically collapse the header by default
+                 enableFilter=true, headerCollapsible=true, headerCollapsed=true, --show search editbox at header, but automatically collapse the header by default
+                  headerCollapsedIcon = function() return {
+                      iconTexture="/esoui/art/miscellaneous/search_icon.dds",
+                      width=20,
+                      height=20,
+                      --iconTint=CUSTOM_HIGHLIGHT_TEXT_COLOR,
+                      align = LEFT,
+                      offsetX = 20,
+                      offSetY = 0,
+                  } end,
+                 --[[ Custom tooltip e.g. 'Click to expand and show the search', which would need translation though.. So disabled for now, icon shoudl be enough
+                  headerToggleTooltip = function(state)
+                      if state == BSTATE_PRESSED then
+                          return GetString(SI_ITEM_SETS_BOOK_HEADER_EXPAND)
+                      else
+                          return GetString(SI_ITEM_SETS_BOOK_HEADER_COLLAPSE)
+                      end
+                  end,
+                  ]]
+                }
+
         )
       end
       control.scrollHelper.OnShow = function() end --don't change parenting
